@@ -18,6 +18,7 @@ alias j="cd ~/java/"
 alias gt="bundle show --paths | xargs ctags -R -a *"
 
 alias rvmrc="rvm --rvmrc --create"
+alias rvmrv="rvm --create --ruby-version use"
 
 alias be="bundle exec"
 alias clojure="rlwrap java -cp /clojure/clojure.jar clojure.main"

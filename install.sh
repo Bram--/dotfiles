@@ -1,12 +1,14 @@
 # Link dotfiles
-for f in .*; do
+cd ./files
+for f in *; do
   if [ -f "$f" ]; then
-    if [ ! -L ~/$f ]; then
-      ln -s ${PWD}/$f ${HOME}
+    if [ ! -L "${HOME}/.${f}" ]; then
+      ln -s ${PWD}/$f ${HOME}/.$f
     fi
   fi
 done
 
+cd ..
 # link zsh theme
 zsh_folder="${HOME}/.oh-my-zsh/custom"
 if [ -d "${zsh_folder}" ]; then

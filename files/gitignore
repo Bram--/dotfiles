@@ -4,6 +4,10 @@
 .swn
 .rvmrc
 .rbenv-version
+.ruby-gemset
+.ruby-gemset.*
+.ruby-version
+.ruby-version.*
 tags
 tmp/**/*
 tmtags
