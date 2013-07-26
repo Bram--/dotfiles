@@ -1,0 +1,82 @@
+set nowrap
+" set wrap
+
+" use indents of 2 spaces, and have them copied down lines:
+set expandtab
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
+
+" Open new horizontal split windows below current
+set splitbelow
+
+" Open new vertical split windows to the right
+set splitright
+
+
+set laststatus=2
+set statusline=\ "
+set statusline+=%f\ " file name
+set statusline+=[
+set statusline+=%{strlen(&ft)?&ft:'none'} " filetype
+set statusline+=]
+set statusline+=%h%1*%m%r%w%0* " flag
+set statusline+=%= " right align
+set statusline+=%-14.(%l,%c%V%)\ %<%P " offset
+
+set guioptions-=m  "remove menu bar
+set guioptions-=T  "remove toolbar
+set guioptions-=r  "remove right-hand scroll bar
+
+" kill trailing spaces when exiting file
+autocmd BufWritePre * :%s/\s\+$//e
+
+
+" Enable filetype-specific indenting, syntax, and plugins
+filetype plugin indent on
+set nocompatible
+syntax on
+
+" UTF-8 All the way
+scriptencoding utf-8
+
+" Use the tab complete menu
+set wildmenu
+
+" Search Config
+
+" show the `best match so far' as search strings are typed:
+set incsearch
+
+" assume the /g flag on :s substitutions to replace all matches in a line:
+set gdefault
+
+" <leader>f to startup an ack search
+map <leader>f :Ack<Space>
+
+
+" RUBY
+
+" Highlight ruby operators
+let ruby_operators = 1
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" ARROW KEYS ARE UNACCEPTABLE
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+map <Left> <Nop>
+map <Right> <Nop>
+map <Up> <Nop>
+map <Down> <Nop>
+
+" map <Leader>rt :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
+function! BuildCTags()
+  exec ":!bundle show --paths | xargs ctags -R -a *"
+endfunction
+map <Leader>rt :call BuildCTags()<cr>
+
+color molokai
+xnoremap p pgvy
+
+let &colorcolumn="80,".join(range(120,999),",")
+highlight ColorColumn ctermbg=235 guibg=#2c2d27
+
