@@ -1,0 +1,9 @@
+.bundle
+.swp
+.swo
+.swn
+.rvmrc
+.rbenv-version
+tags
+tmp/**/*
+tmtags

@@ -1,0 +1,7 @@
+[user]
+  email = bramwijnands@google.com
+  name = Bram Wijnands
+  excludesfile= /~/.gitignore
+[color]
+  status = auto
+  diff = auto
