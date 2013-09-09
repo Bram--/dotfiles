@@ -41,3 +41,7 @@ PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 function lt() { ls -ltrsa "$@" | tail; }
 function psgrep() { ps axu | grep -v grep | grep "$@" -i --color=auto; }
 function fname() { find . -iname "*$@*"; }
+
+unsetopt correct_all
+unsetopt share_history
+DISABLE_CORRECTION="true"
