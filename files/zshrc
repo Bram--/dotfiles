@@ -45,3 +45,18 @@ function fname() { find . -iname "*$@*"; }
 unsetopt correct_all
 unsetopt share_history
 DISABLE_CORRECTION="true"
+
+function ctags_with_gems {
+  gem_folder=""
+  if hash rvm 2>/dev/null; then
+    gem_folder=`rvm gemdir | tail -n1`
+  else
+    gem_folder =`ruby -r rubygems -e "puts Gem.path.to_s" | sed 's/[^"]*\"\([^"]*\)\".*/\1/'`
+  fi
+
+  languages="all"
+   if [ -f "./Gemfile" ]; then
+    languages="javascript,ruby,html,sh,"
+  fi
+  ctags -R --exclude=.git --exclude=./log --exclude=./tmp --languages=${languages} ./* ${gem_folder}/* 2>/dev/null
+}
