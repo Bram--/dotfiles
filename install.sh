@@ -1,7 +1,7 @@
 # Link dotfiles
 cd ./files
 for f in *; do
-  if [ -f "$f" ]; then
+  if [ -s "$f" ]; then
     if [ ! -L "${HOME}/.${f}" ]; then
       ln -s ${PWD}/$f ${HOME}/.$f
     fi
