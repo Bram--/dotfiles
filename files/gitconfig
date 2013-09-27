@@ -1,11 +1,11 @@
 [user]
   email = bramwijnands@google.com
   name = Bram Wijnands
-  excludesfile= /~/.gitignore
+  excludesfile= ~/.gitignore
 [color]
   status = auto
   diff = auto
 [push]
   default = simple
 [init]
-  templatedir = /~/.git_template
+  templatedir = ~/.git_template

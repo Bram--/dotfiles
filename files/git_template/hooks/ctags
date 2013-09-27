@@ -1,4 +1,6 @@
-#!/bin/sh
+#!/bin/zsh
+source ~/.zshrc
 mkdir .git/tags_lock 2>/dev/null || exit 0
-trap "rmdir .git/tags_lock; rm .git/tags.$$" EXIT
+trap "rmdir .git/tags_lock;" EXIT
+
 ctags_with_gems

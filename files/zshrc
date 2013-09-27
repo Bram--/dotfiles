@@ -54,7 +54,7 @@ function ctags_with_gems {
     gem_folder =`ruby -r rubygems -e "puts Gem.path.to_s" | sed 's/[^"]*\"\([^"]*\)\".*/\1/'`
   fi
 
-  languages="-javascript,-sql,-css"
+  languages="-javascript,-sql"
   ctags -Rf.git/tags.$$ --exclude=.git --exclude=./log --exclude=./tmp --languages=${languages} ./* ${gem_folder}/* 2>/dev/null
   mv .git/tags.$$ .git/tags
 }
