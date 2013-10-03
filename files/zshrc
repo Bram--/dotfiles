@@ -55,6 +55,6 @@ function ctags_with_gems {
   fi
 
   languages="-javascript,-sql"
-  ctags -Rf.git/tags.$$ --exclude=.git --exclude=./log --exclude=./tmp --languages=${languages} ./* ${gem_folder}/* 2>/dev/null
-  mv .git/tags.$$ .git/tags
+  ctags -Rf.git/tags.$$ --exclude=.git --exclude=./log --exclude=./tmp --languages=${languages} $PWD ${gem_folder} 2>/dev/null
+  mv .git/tags{.$$,}
 }
