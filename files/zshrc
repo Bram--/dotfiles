@@ -41,3 +41,20 @@ PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 function lt() { ls -ltrsa "$@" | tail; }
 function psgrep() { ps axu | grep -v grep | grep "$@" -i --color=auto; }
 function fname() { find . -iname "*$@*"; }
+
+unsetopt correct_all
+unsetopt share_history
+DISABLE_CORRECTION="true"
+
+function ctags_with_gems {
+  gem_folder=""
+  if hash rvm 2>/dev/null; then
+    gem_folder=`rvm gemdir | tail -n1`
+  else
+    gem_folder =`ruby -r rubygems -e "puts Gem.path.to_s" | sed 's/[^"]*\"\([^"]*\)\".*/\1/'`
+  fi
+
+  languages="-javascript,-sql"
+  ctags -Rf.git/tags.$$ --exclude=.git --exclude=./log --exclude=./tmp --languages=${languages} $PWD ${gem_folder} 2>/dev/null
+  mv .git/tags{.$$,}
+}
