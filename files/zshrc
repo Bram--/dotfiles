@@ -1,3 +1,4 @@
+
 ZSH=$HOME/.oh-my-zsh
 
 ZSH_THEME="bramw"
@@ -58,3 +59,7 @@ function ctags_with_gems {
   ctags -Rf.git/tags.$$ --exclude=.git --exclude=./log --exclude=./tmp --languages=${languages} $PWD ${gem_folder} 2>/dev/null
   mv .git/tags{.$$,}
 }
+
+if [ -s "/etc/bash_completion.d/g4d"]; then
+  source /etc/bash_completion.d/g4d
+fi

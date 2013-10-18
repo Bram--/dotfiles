@@ -7,3 +7,5 @@
   diff = auto
 [init]
   templatedir = ~/.git_template
+[grep]
+  linenumber = true
