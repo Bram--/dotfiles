@@ -1,6 +1,3 @@
-source "$rvm_path/contrib/ps1_functions"
-ps1_set
-
 RVM_PR="%{$fg[green]%}($(~/.rvm/bin/rvm-prompt))%{$reset_color%}"
 TIME_="%{$fg[yellow]%}%T%{$reset_color%}"
 LOCA_="%{$fg[cyan]%}(%~)%{$reset_color%}"

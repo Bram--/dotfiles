@@ -14,21 +14,18 @@ alias gmr="git merge"
 alias gl='git log --graph --pretty=format:"%h (%an: %ar): %s"'
 
 # Directory Aliasses
-alias r="cd ~/rails/"
-alias j="cd ~/java/"
 alias gt="bundle show --paths | xargs ctags -R -a *"
-
 alias rvmrc="rvm --rvmrc --create"
 alias rvmrv="rvm --create --ruby-version use"
 
 alias be="bundle exec"
 alias clojure="rlwrap java -cp /clojure/clojure.jar clojure.main"
-export EDITOR='vim'
+alias tmux="tmux -2"
 
 plugins=(git gem bundler redis-cli rvm lol history-substring-search ruby rails3 golang colored-man extract)
-
 source $ZSH/oh-my-zsh.sh
 
+export EDITOR='vim'
 export LC_CTYPE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
@@ -60,6 +57,26 @@ function ctags_with_gems {
   mv .git/tags{.$$,}
 }
 
-if [ -s "/etc/bash_completion.d/g4d"]; then
+if [ -s /etc/bash_completion.d/g4d ]; then
   source /etc/bash_completion.d/g4d
 fi
+
+function drop_database_with {
+  databases=`mysql -uroot -e "SHOW DATABASES;" | sed s/\(\w+\)/\1/ | sed -n /$1/p | sed  's/\(.*\)/DROP DATABASE \1;/'`;
+  mysql -vuroot -e"$databases"
+}
+
+function mount_mysql_ramdisk {
+  sudo mkdir /tmp/ramdisk
+  sudo mount -t tmpfs -o size=1G tmpfs /tmp/ramdisk/
+
+  # Move MySQL data
+  sudo mv /var/lib/mysql /tmp/ramdisk/mysql
+  sudo ln -s /tmp/ramdisk/mysql/ /var/lib/mysql
+
+  # Update permissions
+  sudo chmod -R 700 /var/lib/mysql
+  sudo chown -R mysql:mysql /var/lib/mysql
+
+  sudo restart mysql
+}

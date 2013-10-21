@@ -48,3 +48,5 @@ nnoremap <leader><leader> <c-^>
 
 highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 match OverLength /\%81v.\+/
+
+set t_Co=256
