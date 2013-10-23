@@ -2,8 +2,7 @@ files/vim/backups/*
 !etc/vim/backups/.getkeep
 files/vim/.netrwhist
 files/vim/tmp
-files/vim/bundle/*
-!files/vim/bundle/vundle
+files/vim/bundle/Align
 tags
 *.swp
 *.swo
