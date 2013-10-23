@@ -45,14 +45,14 @@ unsetopt share_history
 DISABLE_CORRECTION="true"
 
 function ctags_with_gems {
-  gem_folder=""
+local gem_folder=""
   if hash rvm 2>/dev/null; then
     gem_folder=`rvm gemdir | tail -n1`
   else
     gem_folder =`ruby -r rubygems -e "puts Gem.path.to_s" | sed 's/[^"]*\"\([^"]*\)\".*/\1/'`
   fi
 
-  languages="-javascript,-sql"
+  local languages="-javascript,-sql"
   ctags -Rf.git/tags.$$ --exclude=.git --exclude=./log --exclude=./tmp --languages=${languages} $PWD ${gem_folder} 2>/dev/null
   mv .git/tags{.$$,}
 }
@@ -62,7 +62,13 @@ if [ -s /etc/bash_completion.d/g4d ]; then
 fi
 
 function drop_database_with {
-  databases=`mysql -uroot -e "SHOW DATABASES;" | sed s/\(\w+\)/\1/ | sed -n /$1/p | sed  's/\(.*\)/DROP DATABASE \1;/'`;
+  # 1. Show all databases
+  # 2. Only select the names (Drop the | | and --)
+  # 3. Select all the lines that contain the ARG/$1
+  # 4. Create the statements
+  local databases=`mysql -uroot -e "SHOW DATABASES;" | sed s/\(\w+\)/\1/ | sed -n /$1/p | sed  's/\(.*\)/DROP DATABASE \1;/'`;
+
+  # DROP THE DB
   mysql -vuroot -e"$databases"
 }
 
@@ -80,3 +86,80 @@ function mount_mysql_ramdisk {
 
   sudo restart mysql
 }
+
+function receive_specs {
+  # Make sure we have the full path set by RVM
+  [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+  local specs_fifo="/tmp/rspecs"
+
+  # Make sure we don't have an old fifo
+  if [ -e $specs_fifo ]; then
+    rm $specs_fifo
+  fi
+
+  # Create the fifo to receive commands in
+  mkfifo /tmp/rspecs
+
+ # Make sure the FIFO will be destroyed on exit
+  trap 'rm ${specs_fifo}' 0
+
+  # Determine if we need to run Zeus or not
+  local rspec_command=""
+  if zeus_running_for $PWD ; then
+    echo "Zeus is running for $PWD\n ${Yel}Using Zeus${RCol}: "
+    rspec_command="bundle exec zeus rspec --format=progress --no-profile"
+  else
+    echo "Zeus is not running for $PWD\n ${Gre}Using RSpec${RCol}:"
+    rspec_command="bundle exec rspec --format=progress --no-profile"
+  fi
+
+  while true; do
+    if read spec_file <$specs_fifo; then
+      eval "${rspec_command} $spec_file"
+      echo "\n\n"
+    fi
+  done
+}
+
+# Fails if more than one zeus is running!
+function zeus_running_for {
+  local working_dir=$1
+  local zeus_pid=`pgrep "zeus"`
+  local running=1
+
+  if [ ! -z $zeus_pid ]; then
+    local zeus_dir=`pwdx $zeus_pid | sed 's/[0-9]\+:\s\(\.*\)/\1/'`
+
+   if [ "$working_dir" = "$zeus_dir" ]; then
+     running=0;
+   else
+     running=1;
+   fi
+  fi
+
+  return $running;
+}
+
+function send_spec {
+  echo $1 > /tmp/rspecs
+}
+
+RCol='\e[0m'  # Text Reset
+
+# Regular           Bold                Underline           High Intensity      BoldHigh Intens     Background          High Intensity Backgrounds
+Bla='\e[0;30m';     BBla='\e[1;30m';    UBla='\e[4;30m';    IBla='\e[0;90m';    BIBla='\e[1;90m';   On_Bla='\e[40m';    On_IBla='\e[0;100m';
+Red='\e[0;31m';     BRed='\e[1;31m';    URed='\e[4;31m';    IRed='\e[0;91m';    BIRed='\e[1;91m';   On_Red='\e[41m';    On_IRed='\e[0;101m';
+Gre='\e[0;32m';     BGre='\e[1;32m';    UGre='\e[4;32m';    IGre='\e[0;92m';    BIGre='\e[1;92m';   On_Gre='\e[42m';    On_IGre='\e[0;102m';
+Yel='\e[0;33m';     BYel='\e[1;33m';    UYel='\e[4;33m';    IYel='\e[0;93m';    BIYel='\e[1;93m';   On_Yel='\e[43m';    On_IYel='\e[0;103m';
+Blu='\e[0;34m';     BBlu='\e[1;34m';    UBlu='\e[4;34m';    IBlu='\e[0;94m';    BIBlu='\e[1;94m';   On_Blu='\e[44m';    On_IBlu='\e[0;104m';
+Pur='\e[0;35m';     BPur='\e[1;35m';    UPur='\e[4;35m';    IPur='\e[0;95m';    BIPur='\e[1;95m';   On_Pur='\e[45m';    On_IPur='\e[0;105m';
+Cya='\e[0;36m';     BCya='\e[1;36m';    UCya='\e[4;36m';    ICya='\e[0;96m';    BICya='\e[1;96m';   On_Cya='\e[46m';    On_ICya='\e[0;106m';
+Whi='\e[0;37m';     BWhi='\e[1;37m';    UWhi='\e[4;37m';    IWhi='\e[0;97m';    BIWhi='\e[1;97m';   On_Whi='\e[47m';    On_IWhi='\e[0;107m';
+
+# $1 color
+# $2 Text
+function colorize {
+  return "${1} ${2} ${RCol}"
+  return $2
+}
+

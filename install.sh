@@ -3,7 +3,7 @@ cd ./files
 for f in *; do
   if [ -s "$f" ]; then
     if [ ! -L "${HOME}/.${f}" ]; then
-      ln -s ${PWD}/$f ${HOME}/.$f
+      ln -svf ${PWD}/$f ${HOME}/.$f
     fi
   fi
 done
