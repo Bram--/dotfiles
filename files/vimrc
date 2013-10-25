@@ -104,6 +104,7 @@ autocmd WinEnter * let &colorcolumn="80"
 hi StatusLine   ctermbg=white ctermfg=125
 hi StatusLineNC ctermbg=247 ctermfg=234
 hi Normal       ctermfg=252 ctermbg=none
+hi Visual       ctermbg=Black
 
 set number
 set nolazyredraw
