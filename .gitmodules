@@ -1,0 +1,51 @@
+[submodule "files/vim/bundle/vundle"]
+	path = files/vim/bundle/vundle
+	url = https://github.com/gmarik/vundle.git
+
+[submodule "files/vim/bundle/ctrlp.vim"]
+	path = files/vim/bundle/ctrlp.vim
+	url = https://github.com/kien/ctrlp.vim.git
+
+[submodule "files/vim/bundle/jellybeans.vim"]
+	path = files/vim/bundle/jellybeans.vim
+  url = https://github.com/nanotech/jellybeans.vim.git
+
+[submodule "files/vim/bundle/molokai"]
+	path = files/vim/bundle/molokai
+  url = https://github.com/tomasr/molokai.git
+
+[submodule "files/vim/bundle/scss-syntax.vim"]
+	path = files/vim/bundle/scss-syntax.vim
+  url = https://github.com/cakebaker/scss-syntax.vim.git
+
+[submodule "files/vim/bundle/supertab"]
+	path = files/vim/bundle/supertab
+  url = https://github.com/ervandew/supertab.git
+
+[submodule "files/vim/bundle/syntastic"]
+	path = files/vim/bundle/syntastic
+  url = https://github.com/scrooloose/syntastic.git
+
+[submodule "files/vim/bundle/tcomment_vim"]
+	path = files/vim/bundle/tcomment_vim
+  url = https://github.com/tomtom/tcomment_vim.git
+
+[submodule "files/vim/bundle/vim-coffee-script"]
+	path = files/vim/bundle/vim-coffee-script
+  url = https://github.com/kchmck/vim-coffee-script.git
+
+[submodule "files/vim/bundle/vim-easymotion"]
+	path = files/vim/bundle/vim-easymotion
+  url = https://github.com/Lokaltog/vim-easymotion.git
+
+[submodule "files/vim/bundle/vim-fugitive"]
+	path = files/vim/bundle/vim-fugitive
+  url = https://github.com/tpope/vim-fugitive.git
+
+[submodule "files/vim/bundle/vim-rails"]
+	path = files/vim/bundle/vim-rails
+  url = https://github.com/tpope/vim-rails.git
+
+[submodule "files/vim/bundle/vim-surround"]
+	path = files/vim/bundle/vim-surround
+  url = https://github.com/tpope/vim-surround.git
