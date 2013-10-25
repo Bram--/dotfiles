@@ -67,7 +67,6 @@ set statusline+=%-14.(%l,%c%V%)\ %<%P " offset
 " kill trailing spaces when exiting file
 autocmd BufWritePre * :%s/\s\+$//e
 
-
 " UTF-8 All the way
 scriptencoding utf-8
 
@@ -94,10 +93,17 @@ map <Up> <Nop>
 map <Down> <Nop>
 
 color molokai
-let &colorcolumn="80,".join(range(120,999),",")
-highlight ColorColumn ctermbg=235 guibg=#2c2d27
+let &colorcolumn="80"
 
-hi StatusLine ctermbg=white ctermfg=red
+highlight ColorColumn ctermbg=125 ctermfg=white
+
+" Only highlight the current window
+autocmd WinLeave * let &colorcolumn=0
+autocmd WinEnter * let &colorcolumn="80"
+
+hi StatusLine   ctermbg=white ctermfg=125
+hi StatusLineNC ctermbg=247 ctermfg=234
+hi Normal       ctermfg=252 ctermbg=none
 
 set number
 set nolazyredraw
