@@ -13,7 +13,6 @@ Bundle 'kchmck/vim-coffee-script'
 Bundle 'nanotech/jellybeans.vim'
 Bundle 'tomtom/tcomment_vim'
 Bundle 'ervandew/supertab'
-Bundle 'Align'
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'kien/ctrlp.vim'
 Bundle 'tomasr/molokai'
@@ -100,6 +99,7 @@ highlight ColorColumn ctermbg=235 guibg=#2c2d27
 
 hi StatusLine ctermbg=white ctermfg=red
 
+set number
 set nolazyredraw
 
 " Setup backup folders

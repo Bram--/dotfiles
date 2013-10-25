@@ -17,9 +17,9 @@ PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 alias gs="git status"
 alias gpl="git pull"
 alias gps="git push"
-alias gc="git commit"
+alias gc="git commit -v"
 alias gco="git checkout"
-alias gca="git commit -a"
+alias gca="git commit -va"
 alias gmr="git merge"
 alias gl='git log --graph --pretty=format:"%h (%an: %ar): %s"'
 alias rvmrc="rvm --rvmrc --create"
