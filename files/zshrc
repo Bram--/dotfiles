@@ -6,6 +6,7 @@ export LC_CTYPE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
 plugins=(git gem bundler redis-cli rvm lol history-substring-search ruby rails3 golang colored-man extract)
+
 source $ZSH/oh-my-zsh.sh
 export PATH=/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/bin/g4bin:/usr/local/sbin:/usr/X11/
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
@@ -59,12 +60,16 @@ if [ -s /etc/bash_completion.d/g4d ]; then
   source /etc/bash_completion.d/g4d
 fi
 
-function drop_database_with {
+function show_databases_with {
+  mysql -uroot -e "SHOW DATABASES;" | sed s/\(\w+\)/\1/ | sed -n /$1/p
+}
+
+function drop_databases_with {
   # 1. Show all databases
   # 2. Only select the names (Drop the | | and --)
   # 3. Select all the lines that contain the ARG/$1
   # 4. Create the statements
-  databases=`mysql -uroot -e "SHOW DATABASES;" | sed s/\(\w+\)/\1/ | sed -n /$1/p | sed  's/\(.*\)/DROP DATABASE \1;/'`;
+  databases=`show_databases_with $1 | sed  's/\(.*\)/DROP DATABASE \1;/'`;
 
   # DROP THE DBS
   if [ "${databases%\\n}" ]; then
@@ -126,14 +131,21 @@ function receive_specs {
 # Fails if more than one zeus is running!
 function zeus_running_for {
   local working_dir=$1
-  local zeus_pid=`pgrep "zeus"`
+  zeus_pids=`pgrep "zeus" | sed ':a;N;$!ba;s/\n/ /g'`
   local running=1
 
-  if [ ! -z $zeus_pid ]; then
-    local zeus_dir=`pwdx $zeus_pid | sed 's/[0-9]\+:\s\(\.*\)/\1/'`
+  if [ ! -z $zeus_pids ]; then
+    # Now grep the master process
+    local zeus_pid=`ps -fp $zeus_pids | grep " start" |  sed "s/^[0-9]*\\s*\([0-9]*\).*/\1/g"`
 
-   if [ "$working_dir" = "$zeus_dir" ]; then
-     running=0;
+    if [ ! -z $zeus_pid ]; then
+      local zeus_dir=`pwdx $zeus_pid | sed 's/[0-9]\+:\s\(\.*\)/\1/'`
+
+     if [ "$working_dir" = "$zeus_dir" ]; then
+       running=0;
+     else
+       running=1;
+     fi
    else
      running=1;
    fi
