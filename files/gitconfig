@@ -9,3 +9,5 @@
   templatedir = ~/.git_template
 [grep]
   linenumber = true
+[push]
+  default = simple
