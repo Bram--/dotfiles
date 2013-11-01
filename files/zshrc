@@ -8,7 +8,7 @@ export LC_ALL=en_US.UTF-8
 plugins=(git gem bundler redis-cli rvm lol history-substring-search ruby rails3 golang colored-man extract)
 
 source $ZSH/oh-my-zsh.sh
-export PATH=/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/bin/g4bin:/usr/local/sbin:/usr/X11/
+export PATH=$PATH:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/bin/g4bin:/usr/local/sbin:/usr/X11/
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 
 source ~/.rvm/scripts/rvm
