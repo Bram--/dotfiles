@@ -15,11 +15,11 @@ function git_dirty {
 }
 
 function git-prompt {
-  local full_status="`git status -bsz -u all --ignore-submodules=all 2>/dev/null`"
+  local full_status="`git status -bs -u all --ignore-submodules=all 2>/dev/null`"
 
   if [ $full_status ]; then
     local branch_name="`echo $full_status | sed "s/^[^\\s]*\\s\(\\w*\).*/\1/g"`"
-    local ahead="`echo $branch_and_ahead | sed "s/^.*\(\[[^\[]*\]\)$/\1/;tx;d;:x"`"
+    local ahead="`echo $full_status | sed "s/^.*\(\[[^\[]*\]\)$/\1/;tx;d;:x"`"
     if [ $ahead ]; then
       ahead="%{$fg_bold[yellow]%}$ahead%{$reset_color%} "
     fi
