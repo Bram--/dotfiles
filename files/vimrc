@@ -20,6 +20,7 @@ Bundle 'tpope/vim-rails'
 Bundle 'scrooloose/syntastic'
 Bundle 'cakebaker/scss-syntax.vim'
 
+color molokai
 syntax enable
 set t_Co=256
 set shell=$SHELL
@@ -27,6 +28,7 @@ set shell=$SHELL
 au BufNewFile,BufRead *.ejs set filetype=eruby
 au BufNewFile,BufRead *.coffee set filetype=coffee
 au BufNewFile,BufRead *.scss set filetype=sass
+au BufNewFile,BufRead *.zsh-theme set filetype=sh
 
 function! RunSingleSpec()
   execute ":silent !echo '" . bufname("%") . ":" . line(".") .  "' >/tmp/rspecs &>/dev/null &" | redraw!
@@ -96,7 +98,6 @@ map <Right> <Nop>
 map <Up> <Nop>
 map <Down> <Nop>
 
-color molokai
 let &colorcolumn="80"
 
 highlight ColorColumn ctermbg=125 ctermfg=white
