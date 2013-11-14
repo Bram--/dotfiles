@@ -20,6 +20,7 @@ alias gpl="git pull"
 alias gps="git push"
 alias gc="git commit -v"
 alias gco="git checkout"
+alias gg="git grep"
 alias gca="git commit -va"
 alias gmr="git merge"
 alias gl='git log --graph --pretty=format:"%h (%an: %ar): %s"'
