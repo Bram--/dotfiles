@@ -99,16 +99,13 @@ function receive_specs {
   [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
   local specs_fifo="/tmp/rspecs"
 
-  # Make sure we don't have an old fifo
-  if [ -e $specs_fifo ]; then
-    rm $specs_fifo
+  # Create the fifo to receive commands in
+  if [ ! -e $specs_fifo ]; then
+    mkfifo /tmp/rspecs
   fi
 
-  # Create the fifo to receive commands in
-  mkfifo /tmp/rspecs
-
  # Make sure the FIFO will be destroyed on exit
-  trap 'rm ${specs_fifo}' 0
+  trap "{ rm $specs_fifo; return }" SIGINT
 
   # Determine if we need to run Zeus or not
   local rspec_command=""
@@ -122,13 +119,13 @@ function receive_specs {
 
   while true; do
     if read spec_file <$specs_fifo; then
-      eval "${rspec_command} $spec_file"
-      echo "\n\n"
+      echo "Running: ${spec_file}"
+      eval "$rspec_command $spec_file"
+      echo "\n"
     fi
   done
 }
 
-# Fails if more than one zeus is running!
 function zeus_running_for {
   local working_dir=$1
   zeus_pids=`pgrep "zeus" | sed ':a;N;$!ba;s/\n/ /g'`

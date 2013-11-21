@@ -31,15 +31,31 @@ au BufNewFile,BufRead *.scss set filetype=sass
 au BufNewFile,BufRead *.zsh-theme set filetype=sh
 
 function! RunSingleSpec()
-  execute ":silent !echo '" . bufname("%") . ":" . line(".") .  "' >/tmp/rspecs &>/dev/null &" | redraw!
+  let spec_file="" . bufname("%") . ":" . line(".")
+  let g:last_spec=spec_file
+  execute ":w"
+  execute ":silent !echo '" . spec_file .  "' >/tmp/rspecs &>/dev/null &" | redraw!
 endfunction
 
 function! RunSpecFile()
-  execute ":silent !echo '" . bufname("%") . "' >/tmp/rspecs  &>/dev/null &" | redraw!
+  let spec_file="" . bufname("%")
+  let g:last_spec=spec_file
+
+  execute ":w"
+  execute ":silent !echo '" . spec_file . "' >/tmp/rspecs  &>/dev/null &" | redraw!
+endfunction
+
+function! RunLastSpec()
+  if exists("g:last_spec")
+    execute ":silent !echo '" . g:last_spec . "' >/tmp/rspecs  &>/dev/null &" | redraw!
+  else
+    echo ">> No last spec to run!"
+  endif
 endfunction
 
 map <leader>r :call RunSingleSpec()<CR>
 map <leader>R :call RunSpecFile()<CR>
+map <leader>t :call RunLastSpec()<CR>
 
 xnoremap p pgvy
 
