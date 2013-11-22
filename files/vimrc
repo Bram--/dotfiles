@@ -134,3 +134,14 @@ set nolazyredraw
 set backupdir=/tmp/     " Where backups will go.
 set directory=/tmp/     " Where temporary files will go.
 set undodir=/tmp/
+
+" Setup easymotion
+let g:EasyMotion_leader_key = '<Leader>'
+
+" Covience command remappings
+cmap WQ wq
+cmap Wq wq
+cmap W w
+cmap Q q
+cmap ex Ex
+cmap EX Ex
