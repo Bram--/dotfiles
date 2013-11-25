@@ -140,12 +140,9 @@ set backupdir=/tmp/     " Where backups will go.
 set directory=/tmp/     " Where temporary files will go.
 set undodir=/tmp/
 
-
-" Covience command remappings
-cmap WQ wq
-cmap Wq wq
-cmap W w
-cmap Q q
-cmap ex Ex
-cmap EX Ex
-cmap X x
+" Convience command remappings
+cabbrev W w
+cabbrev Q q
+cabbrev ex Ex
+cabbrev EX Ex
+cabbrev X x
