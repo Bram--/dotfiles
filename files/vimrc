@@ -20,10 +20,15 @@ Bundle 'tpope/vim-rails'
 Bundle 'scrooloose/syntastic'
 Bundle 'cakebaker/scss-syntax.vim'
 
-color molokai
-syntax enable
 set t_Co=256
 set shell=$SHELL
+
+color molokai
+syntax enable
+
+" Setup easymotion
+let g:EasyMotion_leader_key = '<Leader>'
+
 
 au BufNewFile,BufRead *.ejs set filetype=eruby
 au BufNewFile,BufRead *.coffee set filetype=coffee
@@ -135,8 +140,6 @@ set backupdir=/tmp/     " Where backups will go.
 set directory=/tmp/     " Where temporary files will go.
 set undodir=/tmp/
 
-" Setup easymotion
-let g:EasyMotion_leader_key = '<Leader>'
 
 " Covience command remappings
 cmap WQ wq
@@ -145,3 +148,4 @@ cmap W w
 cmap Q q
 cmap ex Ex
 cmap EX Ex
+cmap X x

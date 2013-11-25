@@ -30,7 +30,6 @@ alias be="bundle exec"
 alias clojure="rlwrap java -cp /clojure/clojure.jar clojure.main"
 alias tmux="tmux -2"
 
-
 export P4CONFIG=.p4config
 export P4EDITOR=vim
 
@@ -110,16 +109,17 @@ function receive_specs {
   # Determine if we need to run Zeus or not
   local rspec_command=""
   if zeus_running_for $PWD ; then
-    echo "Zeus is running for $PWD\n ${Yel}Using Zeus${RCol}: "
+    echo "${Yel}Using Zeus${RCol}: "
     rspec_command="bundle exec zeus rspec --format=progress --no-profile"
   else
-    echo "Zeus is not running for $PWD\n ${Gre}Using RSpec${RCol}:"
+    echo "${Gre}Using RSpec${RCol}:"
     rspec_command="bundle exec rspec --format=progress --no-profile"
   fi
 
   while true; do
     if read spec_file <$specs_fifo; then
-      echo "Running: ${spec_file}"
+      local time=`date "+%T"`
+      echo "${UWhi}${On_IBla}$time${RCol} ${spec_file}"
       eval "$rspec_command $spec_file"
       echo "\n"
     fi
