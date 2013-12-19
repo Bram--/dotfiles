@@ -26,10 +26,6 @@ set shell=$SHELL
 color molokai
 syntax enable
 
-" Setup easymotion
-let g:EasyMotion_leader_key = '<Leader>'
-
-
 au BufNewFile,BufRead *.ejs set filetype=eruby
 au BufNewFile,BufRead *.coffee set filetype=coffee
 au BufNewFile,BufRead *.scss set filetype=sass
@@ -57,6 +53,15 @@ function! RunLastSpec()
     echo ">> No last spec to run!"
   endif
 endfunction
+
+function! ReplaceHash()
+  s/:\([^ ]*\)\(\s*\)\(=>\s*\)/\1:\2/
+endfunction
+
+vnoremap<silent> <leader>h  :call ReplaceHash()<CR>
+
+nnoremap ; :
+vnoremap ; :
 
 map <leader>r :call RunSingleSpec()<CR>
 map <leader>R :call RunSpecFile()<CR>
@@ -90,6 +95,9 @@ set statusline+=%-14.(%l,%c%V%)\ %<%P " offset
 " Show eol/tabs etc
 set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
 set list
+
+" No syntax higlighting > 120
+set synmaxcol=120
 
 " kill trailing spaces when exiting file
 autocmd BufWritePre * :%s/\s\+$//e
@@ -146,3 +154,5 @@ cabbrev Q q
 cabbrev ex Ex
 cabbrev EX Ex
 cabbrev X x
+cabbrev SEX Sex
+cabbrev SEx Sex
