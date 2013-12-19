@@ -125,10 +125,8 @@ function receive_specs {
       if [[ spec_file = *_spec.rb ]] then
         eval "$rspec_command $spec_file"
       else
-        echo $spec_file
         local file=`echo $spec_file | sed "s/^\(.*\):[0-9]*$/\1/g"`
-        echo $file
-        eval "ruby $PWD/$file"
+        eval "ruby $file"
       fi
       echo "\n"
     fi
