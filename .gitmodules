@@ -50,6 +50,3 @@
 	path = files/vim/bundle/vim-surround
   url = https://github.com/tpope/vim-surround.git
 
-[submodule "files/vim/bundle/vim-airline"]
-	path = files/vim/bundle/vim-airline
-  url = https://github.com/tpope/vim-airline.git

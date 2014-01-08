@@ -1,4 +1,4 @@
-set nocompatible          " We're running Vim, not Vi!
+set nocompatible
 filetype off
 filetype plugin indent on
 
@@ -10,7 +10,6 @@ Bundle 'scrooloose/syntastic'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-surround'
 Bundle 'kchmck/vim-coffee-script'
-Bundle 'bling/vim-airline'
 Bundle 'tomtom/tcomment_vim'
 Bundle 'ervandew/supertab'
 Bundle 'Lokaltog/vim-easymotion'
@@ -19,6 +18,14 @@ Bundle 'tomasr/molokai'
 Bundle 'tpope/vim-rails'
 Bundle 'scrooloose/syntastic'
 Bundle 'cakebaker/scss-syntax.vim'
+
+" Source Google.vim if it exists
+if filereadable("/usr/share/vim/google/google.vim")
+  source /usr/share/vim/google/google.vim
+
+  Glug piper
+  Glug blaze
+endif
 
 set t_Co=256
 set shell=$SHELL
@@ -92,16 +99,6 @@ set shiftwidth=2
 set splitbelow
 set splitright
 
-set laststatus=2
-set statusline=\ "
-set statusline+=%f\ " file name
-set statusline+=[
-set statusline+=%{strlen(&ft)?&ft:'none'} " filetype
-set statusline+=]
-set statusline+=%h%1*%m%r%w%0* " flag
-set statusline+=%= " right align
-set statusline+=%-14.(%l,%c%V%)\ %<%P " offset
-
 " Show eol/tabs etc
 set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
 set list
@@ -129,26 +126,35 @@ set gdefault
 " Highlight ruby operators
 let ruby_operators = 1
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""
 " ARROW KEYS ARE UNACCEPTABLE
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""
 map <Left> <Nop>
 map <Right> <Nop>
 map <Up> <Nop>
 map <Down> <Nop>
 
-let &colorcolumn="80"
-
-highlight ColorColumn ctermbg=125 ctermfg=white
-
-" Only highlight the current window
-autocmd WinLeave * let &colorcolumn=0
-autocmd WinEnter * let &colorcolumn="80"
+set laststatus=2
+set statusline=\ "
+set statusline+=%f\ " file name
+set statusline+=[
+set statusline+=%{strlen(&ft)?&ft:'none'} " filetype
+set statusline+=]
+set statusline+=%h%1*%m%r%w%0* " flag
+set statusline+=%= " right align
+set statusline+=%-14.(%l,%c%V%)\ %<%P " offset
 
 hi StatusLine   ctermbg=white ctermfg=125
 hi StatusLineNC ctermbg=247 ctermfg=234
 hi Normal       ctermfg=252 ctermbg=none
 hi Visual       ctermbg=54
+
+" Only highlight the current window
+highlight ColorColumn ctermbg=125 ctermfg=white
+
+au WinLeave * let &colorcolumn=0
+au WinEnter * let &colorcolumn="80"
+let &colorcolumn="80"
 
 set number
 set nolazyredraw
