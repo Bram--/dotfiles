@@ -14,10 +14,9 @@ Bundle 'tomtom/tcomment_vim'
 Bundle 'ervandew/supertab'
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'kien/ctrlp.vim'
-Bundle 'tomasr/molokai'
 Bundle 'tpope/vim-rails'
-Bundle 'scrooloose/syntastic'
 Bundle 'cakebaker/scss-syntax.vim'
+Bundle 'tomasr/molokai'
 
 " Source Google.vim if it exists
 if filereadable("/usr/share/vim/google/google.vim")
@@ -31,12 +30,15 @@ set t_Co=256
 set shell=$SHELL
 
 color molokai
+
 syntax enable
 
 au BufNewFile,BufRead *.ejs set filetype=eruby
 au BufNewFile,BufRead *.coffee set filetype=coffee
 au BufNewFile,BufRead *.scss set filetype=sass
 au BufNewFile,BufRead *.zsh-theme set filetype=sh
+au BufNewFile,BufRead *.java set syntax=java
+au BufNewFile,BufRead *.proto set syntax=java
 
 function! RunSingleSpec()
   let spec_file="" . bufname("%") . ":" . line(".")
